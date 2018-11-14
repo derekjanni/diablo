@@ -69,6 +69,7 @@ class Diablo(object):
         )
         args = parser.parse_args()
         command = args.command
+        if command:
             if command == 'status':
                 self.is_running()
             if command == 'start':
