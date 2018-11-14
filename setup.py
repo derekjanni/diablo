@@ -8,11 +8,11 @@ except ImportError:
     from distutils.core import setup
 
 setup(
-    name="python-daemon",
+    name="diablo",
     version=__version__,
-    author="Server Density",
+    author="Derek Janni",
     license="http://creativecommons.org/licenses/by-sa/3.0/",
-    url="https://github.com/serverdensity/python-daemon",
+    url="https://github.com/derekjanni/diablo",
     description="Python daemonizer for Unix, Linux and OS X",
     platforms=["any"],
     classifiers=[

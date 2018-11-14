@@ -11,7 +11,7 @@ Usage
 ---------------------
 
 Define a class which inherits from `Diablo` and has a `run()` method (which is what will be called once the daemonization is completed.
-
+```python
 	from daemon import Diablo
 
 	class App(Diablo):
@@ -22,7 +22,7 @@ Create a new object of your class, specifying where you want your PID file to ex
 
 	app = App('/path/to/pid.pid')
 	app.start()
-
+```
 Commands
 ---------------------
 It's more useful to run this daemon the same as any ^nix Process. If your
@@ -33,7 +33,19 @@ to check on your daemon
 
 Installation
 ---------------------
-**TODO**
+You can quickly install any script as a daemon on ^nix systems in a number of ways.
+A quick and well accepted one is:
+```
+pip install -e . # install diablo with pip
+cp yourscript.py /usr/local/bin/yourscript # use ~/bin if you're uncomfortable/unable installing to local bin
+export PATH=$PATH:/usr/local/bin # again, you can install to ~/bin if this makes you uncomfortable
+
+# Then start your daemon the same as you would with celery or uwsgi
+yourscript start
+yourscript status
+```
+
+Easy!
 
 Actions
 ---------------------
