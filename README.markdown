@@ -3,25 +3,37 @@
 Python daemonizer class
 ====================
 
-This is a Python class that will daemonize your Python script so it can continue running in the background. It works on Unix, Linux and OS X, creates a PID file and has standard commands (start, stop, restart) + a foreground mode.
+This is a Python class that will daemonize your Python script so it can continue running in the background. It works on Unix, Linux and OS X, creates a PID file and has standard commands (start, stop, restart, status) + a foreground mode.
 
 Based on [this original version from jejik.com](http://www.jejik.com/articles/2007/02/a_simple_unix_linux_daemon_in_python/).
 
 Usage
 ---------------------
 
-Define a class which inherits from `Daemon` and has a `run()` method (which is what will be called once the daemonization is completed.
+Define a class which inherits from `Diablo` and has a `run()` method (which is what will be called once the daemonization is completed.
 
-	from daemon import Daemon
-	
-	class pantalaimon(Daemon):
+	from daemon import Diablo
+
+	class App(Diablo):
 		def run(self):
 			# Do stuff
-			
+
 Create a new object of your class, specifying where you want your PID file to exist:
 
-	pineMarten = pantalaimon('/path/to/pid.pid')
-	pineMarten.start()
+	app = App('/path/to/pid.pid')
+	app.start()
+
+Commands
+---------------------
+It's more useful to run this daemon the same as any ^nix Process. If your
+daemon lives in a file called diabloexample.py then run
+`python diabloexample.py start | stop | restart | status`
+
+to check on your daemon
+
+Installation
+---------------------
+**TODO**
 
 Actions
 ---------------------

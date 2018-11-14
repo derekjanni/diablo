@@ -2,12 +2,9 @@
 ***
 Modified generic daemon class
 ***
-
 Author:         http://www.jejik.com/articles/2007/02/
                         a_simple_unix_linux_daemon_in_python/www.boxedice.com
-
 License:        http://creativecommons.org/licenses/by-sa/3.0/
-
 Changes:        23rd Jan 2009 (David Mytton <david@boxedice.com>)
                 - Replaced hard coded '/dev/null in __init__ with os.devnull
                 - Added OS check to conditionally remove code that doesn't
@@ -29,18 +26,26 @@ import os
 import sys
 import time
 import signal
+import argparse
 
 
-class Daemon(object):
+class Diablo(object):
     """
     A generic daemon class.
-
-    Usage: subclass the Daemon class and override the run() method
+    Usage: subclass the Diablo class and override the run() method
     """
-    def __init__(self, pidfile, stdin=os.devnull,
-                 stdout=os.devnull, stderr=os.devnull,
-                 home_dir='.', umask=0o22, verbose=1,
-                 use_gevent=False, use_eventlet=False):
+    def __init__(
+        self,
+        pidfile,
+        stdin=os.devnull,
+        stdout=os.devnull,
+        stderr=os.devnull,
+        home_dir='.',
+        umask=0o22,
+        verbose=1,
+        use_gevent=False,
+        use_eventlet=False
+    ):
         self.stdin = stdin
         self.stdout = stdout
         self.stderr = stderr
@@ -51,6 +56,27 @@ class Daemon(object):
         self.daemon_alive = True
         self.use_gevent = use_gevent
         self.use_eventlet = use_eventlet
+        self.handle_command()
+
+    def handle_command(self):
+        parser = argparse.ArgumentParser(description='handle command arguments')
+        parser.add_argument(
+            'command',
+            type=str,
+            help='support start/stop/status/restart logic'
+        )
+        args = parser.parse_args()
+        command = args.command
+
+        if command:
+            if command == 'status':
+                self.is_running()
+            if command == 'start':
+                self.start()
+            if command == 'stop':
+                self.stop()
+            if command == 'restart':
+                self.restart()
 
     def log(self, *args):
         if self.verbose >= 1:
@@ -242,7 +268,7 @@ class Daemon(object):
 
     def run(self):
         """
-        You should override this method when you subclass Daemon.
+        You should override this method when you subclass Diablo.
         It will be called after the process has been
         daemonized by start() or restart().
         """
