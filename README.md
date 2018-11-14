@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/serverdensity/python-daemon.svg?branch=master)](https://travis-ci.org/serverdensity/python-daemon)
 
-Python daemonizer class
+Diablo: easy daemonization
 ====================
 
 This is a Python class that will daemonize your Python script so it can continue running in the background. It works on Unix, Linux and OS X, creates a PID file and has standard commands (start, stop, restart, status) + a foreground mode.
